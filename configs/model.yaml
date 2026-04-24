@@ -1,0 +1,44 @@
+# PromptShield/configs/model.yaml
+#
+# Model settings for baselines, transformer classifiers, and evaluation.
+
+labels:
+  benign: 0
+  suspicious: 1
+
+baseline:
+  name: "tfidf_logistic_regression"
+  text_column: "text"
+  label_column: "label"
+  max_features: 30000
+  ngram_range: [1, 2]
+  min_df: 2
+  max_df: 0.95
+  lowercase: true
+  class_weight: "balanced"
+  random_seed: 42
+
+transformer:
+  name: "distilbert_prompt_injection_classifier"
+  base_model: "distilbert-base-uncased"
+  text_column: "text"
+  label_column: "label"
+  max_length: 256
+  train_batch_size: 16
+  eval_batch_size: 32
+  learning_rate: 0.00002
+  weight_decay: 0.01
+  epochs: 4
+  warmup_ratio: 0.1
+  random_seed: 42
+
+thresholds:
+  suspicious_probability: 0.50
+  high_risk_probability: 0.75
+  block_probability: 0.90
+
+artifacts:
+  baseline_model_dir: "artifacts/models/tfidf_logistic_regression"
+  transformer_model_dir: "artifacts/models/distilbert_prompt_injection_classifier"
+  metrics_dir: "artifacts/metrics"
+  predictions_dir: "artifacts/predictions"

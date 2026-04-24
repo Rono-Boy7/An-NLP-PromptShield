@@ -1,0 +1,60 @@
+# PromptShield/configs/policy.yaml
+#
+# Policy settings for turning detection results into security decisions.
+
+risk_levels:
+  allow:
+    min_score: 0.0
+    max_score: 0.29
+    decision: "ALLOW"
+
+  monitor:
+    min_score: 0.30
+    max_score: 0.59
+    decision: "ALLOW_WITH_WARNING"
+
+  sanitize:
+    min_score: 0.60
+    max_score: 0.84
+    decision: "SANITIZE"
+
+  block:
+    min_score: 0.85
+    max_score: 1.0
+    decision: "BLOCK"
+
+categories:
+  instruction_override:
+    weight: 0.30
+    description: "Attempts to override trusted user, system, or developer instructions."
+
+  role_manipulation:
+    weight: 0.20
+    description: "Attempts to change the assistant identity, role, or operating mode."
+
+  tool_manipulation:
+    weight: 0.25
+    description: "Attempts to influence tool usage, hidden actions, or external calls."
+
+  data_exfiltration:
+    weight: 0.35
+    description: "Attempts to access, reveal, or transmit private or hidden information."
+
+  context_confusion:
+    weight: 0.15
+    description: "Attempts to blur boundaries between trusted instructions and untrusted content."
+
+  hidden_instruction:
+    weight: 0.20
+    description: "Suspicious encoded, hidden, repeated, or disguised instructions."
+
+safe_context:
+  enabled: true
+  include_risk_summary: true
+  include_removed_span_count: true
+  max_safe_context_chars: 12000
+
+sanitization:
+  replace_removed_spans_with_marker: true
+  marker: "[REMOVED_BY_PROMPTSHIELD]"
+  preserve_original_offsets: true

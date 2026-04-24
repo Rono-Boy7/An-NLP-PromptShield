@@ -1,0 +1,40 @@
+# PromptShield/configs/default.yaml
+#
+# Main app configuration used across scripts, API, and local development.
+
+app:
+  name: "PromptShield"
+  version: "0.1.0"
+  environment: "development"
+  log_level: "INFO"
+
+paths:
+  project_root: "."
+  data_dir: "data"
+  raw_data_dir: "data/raw"
+  interim_data_dir: "data/interim"
+  processed_data_dir: "data/processed"
+  samples_data_dir: "data/samples"
+  artifacts_dir: "artifacts"
+  models_dir: "artifacts/models"
+  reports_dir: "reports"
+
+datasets:
+  deepset_prompt_injections:
+    train_path: "data/raw/deepset_prompt_injections/train.parquet"
+    test_path: "data/raw/deepset_prompt_injections/test.parquet"
+    text_column: "text"
+    label_column: "label"
+
+api:
+  host: "127.0.0.1"
+  port: 8000
+  reload: true
+  title: "PromptShield API"
+  description: "NLP-based prompt injection defense service for untrusted RAG and agent content."
+
+runtime:
+  random_seed: 42
+  max_input_chars: 20000
+  default_chunk_size: 1200
+  default_chunk_overlap: 150
